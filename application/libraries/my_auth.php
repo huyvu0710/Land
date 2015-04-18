@@ -41,13 +41,14 @@ class My_auth {
     **********************************************/
 	public function allow($auth, $url){
 		// allow
-		if ( $auth['group_allow'] == 1) {
+		if ($auth['group_allow'] == 1) {
 			if (!isset($auth['group_content']) && count($auth['group_content']) == 0) {
-				$this->CI->my_string->js_redirect('Không đủ quyền truy cậpsss!', HHV_BASE_URL.'backend');
+				$this->CI->my_string->js_redirect('Không đủ quyền truy cập!', HHV_BASE_URL.'backend');
 			}
 			if (in_array($url, $auth['group_content']) == FALSE) {
 				$this->CI->my_string->js_redirect('Không đủ quyền truy cập!', HHV_BASE_URL.'backend');
 			}
+				
 		}
 
 		// disallow

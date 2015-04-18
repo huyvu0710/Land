@@ -53,6 +53,16 @@ if ( ! function_exists('get_category'))
 	}
 }
 
+if ( ! function_exists('get_count_post'))
+{
+	function get_count_post($table, $param)
+	{
+		$CI =& get_instance();
+		$count = $CI->db->where($param)->from($table)->count_all_results(); 
+		return $count;
+	}
+}
+
 if ( ! function_exists('get_count_item'))
 {
 	function get_count_item($table, $param)

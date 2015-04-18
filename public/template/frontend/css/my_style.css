@@ -209,3 +209,8 @@ nav.navigation ul.search input.submit:hover{
 	background: #E7E7E7;
 	text-decoration: none; 	
 }
+
+
+.my_input{
+	width: 660px;
+}

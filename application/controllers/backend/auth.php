@@ -10,6 +10,7 @@ class Auth extends MY_Controller {
         $this->load->helper('cookie');
 
         $this->auth = $this->my_auth->check();
+        
     }
 
     /*
@@ -185,6 +186,7 @@ class Auth extends MY_Controller {
 			$this->form_validation->set_error_delimiters('<li>', '</li>');
 			$this->form_validation->set_rules('data[username]', 'Tên tài khoản', 'trim|required|min_length[3]|max_length[20]|regex_match[/^([a-z0-9_])+$/i]');
 			$this->form_validation->set_rules('data[password]', 'Mật khẩu', 'trim|required');
+			$this->form_validation->set_rules('data[repassword]', 'Xác nhận mật khẩu', 'trim|required||matches[data[password]]');
 			$this->form_validation->set_rules('data[email]', 'Email', 'trim|required|valid_email');
 			if ($this->form_validation->run() == TRUE)
 			{

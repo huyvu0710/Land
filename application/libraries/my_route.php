@@ -13,6 +13,7 @@ class My_route {
 	public function insert($param){
 		if(isset($param) && count($param) >= 2){
 			$this->CI->db->insert('route', $param);
+			$this->create();
 		}
 	}
 
@@ -35,6 +36,22 @@ class My_route {
 		}
 		else{
 			$this->CI->db->delete('route', array('param' => $param));
+		}
+		$this->create();
+	}
+
+	public function create(){
+		$_data = $this->CI->db->select('url, param')->from('route')->get()->result_array();
+		if (isset($_data) && count($_data)) {
+			$str = '<?php'."\n";
+			foreach ($_data as $key => $val) {
+				$str = $str . '$route[\''.$val['url'].'\'] = \'frontend/'.$val['param'].'\';'."\n";
+			}
+			$file = 'route.php';
+			$fm = fopen($file, 'w');
+			if (fwrite($fm, $str)) {
+
+			}
 		}
 	}
 

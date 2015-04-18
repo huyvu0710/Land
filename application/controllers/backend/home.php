@@ -7,8 +7,8 @@ class Home extends MY_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $this->auth = $this->my_auth->check();
         $this->my_layout->setLayout("layout/backend"); 
+        $this->auth = $this->my_auth->check();
     }
 
 	public function index()

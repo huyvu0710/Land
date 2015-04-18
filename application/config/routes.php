@@ -40,6 +40,7 @@
 
 $route['default_controller'] = "frontend/home/index";
 $route['backend$'] = "backend/home/index";
+require_once('route.php');
 $route['404_override'] = '';
 
 

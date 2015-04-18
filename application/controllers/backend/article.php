@@ -15,7 +15,7 @@ class Article extends MY_Controller
         /***
         * Permission to access
         ***/
-        $this->my_auth->allow($this->auth, 'backend/category');
+        $this->my_auth->allow($this->auth, 'backend/article');
     }
 
     /**********************************************
@@ -40,7 +40,6 @@ class Article extends MY_Controller
                 $this->db->update_batch('article_category', $_data, 'id'); 
                 $this->my_string->js_reload('Cập nhật vị trí thành công!');
             }
-            
         }
 
         $this->my_nestedset->set('article_category');
@@ -75,11 +74,13 @@ class Article extends MY_Controller
                 $_post['lang'] = $this->session->userdata('_lang');
                 $_post['alias'] = $this->my_string->alias($_post['title']);
                 $this->db->insert('article_category', $_post); 
-                $this->my_route->insert(array(
-                    'url' => $_post['route'],
-                    'param' => 'article/category/'.$this->db->insert_id(),
-                    'created' => gmdate('Y-m-d H:i:s', time() + 7*3600),
-                ));
+                if (isset($_post['route']) && !empty($_post['route'])) {
+                    $this->my_route->insert(array(
+                        'url' => $_post['route'],
+                        'param' => 'article/category/'.$this->db->insert_id(),
+                        'created' => gmdate('Y-m-d H:i:s', time() + 7*3600),
+                    ));
+                }
                 $this->my_string->js_redirect('Thêm danh mục thành công!', base_url().'backend/article/category');
             }
         }
@@ -136,7 +137,7 @@ class Article extends MY_Controller
         else{
             $data['data']['_post'] = $category; 
         }
-        $data['data']['_show']['parentid'] = $this->my_nestedset->dropdown('article_category', NULL, 'item');
+        $data['data']['_show']['parentid'] = $this->my_nestedset->dropdown('article_category', NULL, 'category');
         $data['seo']['title'] = "Sửa danh mục";
         $data['data']['auth'] = $this->auth;
         $this->my_layout->view("backend/article/editcategory", isset($data)?$data:NULL);
@@ -249,6 +250,7 @@ class Article extends MY_Controller
         $sort = $this->my_common->sort_orderby($this->input->get('sort_field'), $this->input->get('sort_value'));
         $config = $this->my_common->backend_pagination();
         $config['base_url'] = base_url().'backend/article/item';
+        $config['per_page'] = 5;
 
         /***
         * Load pagination when search
@@ -341,7 +343,7 @@ class Article extends MY_Controller
             }       
             if ($this->form_validation->run() == TRUE){
                 $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'route', 'meta_title', 'meta_keywords', 'meta_description'));
-                $_post['timer'] = gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['timer'])) + 7*3600 );
+                $_post['timer'] = !empty($_post['timer'])?gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['timer'])) + 7*3600 ):'';
                 $_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_created'] = $this->auth['id'];
                 $_post['tags'] = !empty($_post['tags'])?(','.str_replace(', ', ',', $_post['tags']).','):'';
@@ -349,11 +351,13 @@ class Article extends MY_Controller
                 $_post['lang'] = $this->session->userdata('_lang');
                 $this->db->insert('article_item', $_post); 
                 $this->my_tag->insert_list($_post['tags']);
-                $this->my_route->insert(array(
-                    'url' => $_post['route'],
-                    'param' => 'article/item/'.$this->db->insert_id(),
-                    'created' => gmdate('Y-m-d H:i:s', time() + 7*3600),
-                ));
+                if (isset($_post['route']) && !empty($_post['route'])) {
+                    $this->my_route->insert(array(
+                        'url' => $_post['route'],
+                        'param' => 'article/item/'.$this->db->insert_id(),
+                        'created' => gmdate('Y-m-d H:i:s', time() + 7*3600),
+                    ));
+                }
                 $this->my_string->js_redirect('Thêm bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }
@@ -395,6 +399,7 @@ class Article extends MY_Controller
             }  
             if ($this->form_validation->run() == TRUE){
                 $_post = $this->my_string->allow_post($_post, array('title', 'parentid', 'tags', 'image', 'description', 'content', 'publish', 'highlight', 'timer', 'source', 'route', 'meta_title', 'meta_keywords', 'meta_description'));
+                $_post['timer'] = !empty($_post['timer'])?gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$_post['timer'])) + 7*3600 ):'';
                 $_post['updated'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
                 $_post['userid_updated'] = $this->auth['id'];
                 $_post['tags'] = !empty($_post['tags'])?(','.str_replace(', ', ',', $_post['tags']).','):'';
@@ -409,6 +414,7 @@ class Article extends MY_Controller
         }
         else{
             $item['tags'] = !empty($item['tags'])?(str_replace(',', ', ', substr(substr($item['tags'], 1), 0, -1))):'';
+            $item['timer'] = ($item['timer'] != '0000-00-00 00:00:00')?gmdate('Y-m-d H:i:s', strtotime(str_replace('/', '-',$item['timer'])) + 7*3600 ):'';
             $data['data']['_post'] = $item; 
         }
         $data['data']['_show']['parentid'] = $this->my_nestedset->dropdown('article_category', NULL, 'item');

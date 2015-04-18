@@ -9,10 +9,10 @@
 			</ul>
 		</li>
 		<li class="main">
-			<a class="main" href="<?php echo base_url(); ?>backend/user/group" title="Thành viên">Thành viên</a>
+			<a class="main" href="<?php echo base_url(); ?>backend/user/index" title="Thành viên">Thành viên</a>
 			<ul class="item">
 				<li class="item"><a href="<?php echo base_url(); ?>backend/user/group" title="Nhóm thành viên">Nhóm thành viên</a></li>
-				<li class="item"><a href="<?php echo base_url(); ?>backend/user/addgroup" title="Thành viên">Thành viên</a></li>
+				<li class="item"><a href="<?php echo base_url(); ?>backend/user/index" title="Thành viên">Thành viên</a></li>
 			</ul>
 		</li>
 		<li class="main">
@@ -32,6 +32,9 @@
 				<li class="item"><a href="<?php echo base_url(); ?>backend/article/item" title="Bài viết">Tin tức</a></li>
 				<li class="item"><a href="<?php echo base_url(); ?>backend/article/itemland" title="Nhà đất">Nhà đất</a></li>
 			</ul>
+		</li>
+		<li class="main">
+			<a class="main" href="<?php echo base_url(); ?>backend/contact/index" title="Liên hệ">Liên hệ</a>
 		</li>
 		<li class="main">
 			<a class="main" href="<?php echo base_url(); ?>" title="Trang chủ">View Page</a>

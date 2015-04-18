@@ -48,7 +48,8 @@ class Adv extends MY_Controller
 		$sort = $this->my_common->sort_orderby($this->input->get('sort_field'), $this->input->get('sort_value'));
 		$config = $this->my_common->backend_pagination();
 		$config['base_url'] = base_url().'backend/adv/index';
-
+		$config['per_page'] = 10;
+		
 		/***
 		* Load pagination when search
 		***/
