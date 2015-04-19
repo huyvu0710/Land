@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class My_nestedset extends CI_Model{
+class My_nestedset{
 	private $CI;
 	private $auth;
 
