@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class My_string extends CI_Model{
+class My_string {
 	private $CI;
 	public function __construct(){
 		$this->CI =& get_instance();
