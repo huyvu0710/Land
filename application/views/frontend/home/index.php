@@ -63,7 +63,7 @@
                             </select>
                         </div>
                         <div class="col-lg-3 col-sm-4">
-                            <button class="btn btn-success" onclick="window.location.href='buysalerent.php'">Tìm nào!
+                            <button class="btn btn-success" onclick="window.location.href='buysalerent.php'"><?php echo $this->lang->line('ft_find');?>
                             </button>
                         </div>
                     </div>

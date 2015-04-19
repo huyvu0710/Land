@@ -4,3 +4,7 @@ Password: 123456
 
 .db name:
 project_landtrader
+
+
+// câu lệnh set ngôn ngữ
+<?php echo $this->lang->line('ft_login');?>
