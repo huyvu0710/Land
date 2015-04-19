@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class My_common {
+class My_common extends CI_Model{
 
 	private $CI;
 

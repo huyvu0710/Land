@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class My_route {
+class My_route extends CI_Model{
 
 	private $CI;
 	private $auth;
