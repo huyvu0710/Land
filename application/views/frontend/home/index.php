@@ -72,7 +72,7 @@
                 </div>
                 <div class="col-lg-5 col-lg-offset-1 col-sm-6 ">
                     <p>Cùng tham gia và nhận nhiều quyền lợi nào!</p>
-                    <button class="btn btn-info" data-toggle="modal" data-target="#loginpop"><a href="<?php echo base_url(); ?>backend/auth/login">Login</a></button>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#loginpop"><a href="<?php echo base_url(); ?>backend/auth/login">Đăng Nhập</a></button>
                 </div>
             </div>
         </div>
