@@ -214,3 +214,18 @@ nav.navigation ul.search input.submit:hover{
 .my_input{
 	width: 660px;
 }
+
+ul.lang{
+	float: right;
+	margin: 9px -90px 0px 0px;
+}
+
+ul.lang li {
+	display: inline;
+	margin: 0px 0px 0px 5px;
+}
+
+ul.lang li a {
+	color: #fff;
+	text-transform: uppercase;
+}

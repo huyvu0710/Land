@@ -32,7 +32,7 @@
 				echo '<li><a href="'.base_url().'backend/home/lang/'.$key.'?continue='.base64_encode(common_fullurl()).'" title="'.$val.'" >'.$key.'</a></li>';
 		}
 	?>
-	</ul>>
+	</ul>
 </header>
 <?php $this->load->view('backend/common/nav');?>
 

@@ -38,7 +38,6 @@
 
             </div>
 
-
             <!-- Nav Starts -->
             <div class="navbar-collapse  collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -46,7 +45,22 @@
                     <li><a href="<?php echo base_url(); ?>frontend/about/index">Giới thiệu</a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/agent/index">Quản trị viên</a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/contact/index">Liên hệ</a></li>
+                    <ul class="lang">
+                    <?php
+                        $_lang = $this->session->userdata('_lang');
+                        
+                        $lang = array(
+                            'jp' => 'Tiếng Nhật',
+                            'en' => 'Tiếng Anh',
+                            'vi' => 'Tiếng Việt',
+                        );
+                        foreach ($lang as $key => $val) {
+                            echo '<li><a href="'.(($key!='vi')?$key.HHV_URL_SUFFIX:'vi.html').'" title="'.$val.'" >'.$key.'</a></li>';
+                        }
+                    ?>
+                    </ul>
                 </ul>
+<?php echo $this->lang->line('ft_hello');?>
             </div>
             <!-- #Nav Ends -->
 

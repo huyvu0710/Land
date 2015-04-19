@@ -40,6 +40,10 @@
 
 $route['default_controller'] = "frontend/home/index";
 $route['backend$'] = "backend/home/index";
+// lang
+$route['en'] = "frontend/home/index/en";
+$route['jp'] = "frontend/home/index/jp";
+$route['vi'] = "frontend/home/index";
 require_once('route.php');
 $route['404_override'] = '';
 
