@@ -1,5 +1,5 @@
 <section class="hhv-tabs">
-	<h1>Liên hệ</h1>
+	<h1>Bài viết liên hệ</h1>
 </section>
 
 <section class="hhv-view">
