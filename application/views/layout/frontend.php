@@ -41,10 +41,10 @@
             <!-- Nav Starts -->
             <div class="navbar-collapse  collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('ft_menu_home');?></a></li>
-                    <li><a href="<?php echo base_url(); ?>frontend/about/index"><?php echo $this->lang->line('ft_menu_introduce');?></a></li>
-                    <li><a href="<?php echo base_url(); ?>frontend/agent/index"><?php echo $this->lang->line('ft_menu_agent');?></a></li>
-                    <li><a href="<?php echo base_url(); ?>frontend/contact/index"><?php echo $this->lang->line('ft_menu_contact');?></a></li>
+                    <li class="active"><a href="<?php echo base_url(); ?>">Trang chủ</a></li>
+                    <li><a href="<?php echo base_url(); ?>frontend/about/index">Giới thiệu</a></li>
+                    <li><a href="<?php echo base_url(); ?>frontend/agent/index">Quản trị viên</a></li>
+                    <li><a href="<?php echo base_url(); ?>frontend/contact/index">Liên hệ</a></li>
                     <ul class="lang">
                     <?php
                         $_lang = $this->session->userdata('_lang');
@@ -60,7 +60,7 @@
                     ?>
                     </ul>
                 </ul>
-
+<?php echo $this->lang->line('ft_hello');?>
             </div>
             <!-- #Nav Ends -->
 
