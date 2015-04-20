@@ -45,13 +45,6 @@
                     <li><a href="<?php echo base_url(); ?>frontend/about/index"><?php echo $this->lang->line('ft_menu_introduce');?></a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/agent/index"><?php echo $this->lang->line('ft_menu_agent');?></a></li>
                     <li><a href="<?php echo base_url(); ?>frontend/contact/index"><?php echo $this->lang->line('ft_menu_contact');?></a></li>
-
-                    <li id="<?php echo !isset($this->auth)?'box_hidden':'#';?>"><a href="<?php echo base_url(); ?>frontend/account/index"><?php echo $this->lang->line('ft_account');?></a></li>
-
-                    <li id="<?php echo (!isset($this->auth) || $this->auth['group_title']!='Quản trị viên')?'box_hidden':'#';?>"><a href="<?php echo base_url(); ?>backend"><?php echo $this->lang->line('ft_page_admin');?></a></li>
-                    
-                    <li id="<?php echo !isset($this->auth)?'box_hidden':'#';?>"><a href="<?php echo base_url(); ?>backend/auth/logout"><?php echo $this->lang->line('ft_logout');?></a></li>
-
                     <ul class="lang">
                     <?php
                         $_lang = $this->session->userdata('_lang');

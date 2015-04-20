@@ -8,7 +8,6 @@ class Home extends CI_Controller
         parent::__construct();
         $this->load->library("my_layout"); // Sử dụng thư viện layout
         $this->my_layout->setLayout("layout/frontend"); // load file layout chính (views/layout/frontend.php)
-        $this->auth = $this->my_auth->check();
     }
 
     public function index($lang = '')

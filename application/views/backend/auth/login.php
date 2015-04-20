@@ -23,7 +23,7 @@
 	    <section><input type="submit" name="login" value="Đăng nhập" class="btnLogin" /><input type="reset" name="reset" value="Làm lại" class="btnReset" /></section>
 	    <nav> <!-- các thẻ điều hướng thường nằm trong thẻ nav -->
 		    <ul>
-		    	<li><a href="<?php echo base_url(); ?>backend/auth/register">Đăng ký</a></li>
+		    	<li><a href="#">Về trang chủ</a></li>
 		    	<li>/</li>
 		    	<li><a href="<?php echo base_url(); ?>backend/auth/forgot">Quên mật khẩu</a></li>
 		    </ul>

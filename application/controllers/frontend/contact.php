@@ -13,7 +13,7 @@ class Contact extends CI_Controller
         //     $this->my_string->php_redirect(base_url().'frontend/contact');
     }
 
-    public function index($lang = '')
+    public function index()
     {
         if($this->input->post('submit')){
             $_post = $this->input->post('data');
