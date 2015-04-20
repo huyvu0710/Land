@@ -19,7 +19,7 @@ class Auth extends MY_Controller {
 	public function login()
 	{
 		if($this->auth != NULL) 
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(HHV_BASE_URL.'frontend');
 		$data['seo']['title'] = "Đăng nhập vào hệ thống";
 		if($this->input->post('login')){
 			$_post = $this->input->post('data');
@@ -34,7 +34,7 @@ class Auth extends MY_Controller {
 				$user = $this->db->select('username, password, salt')->where(array('username' => $_post['username']))->from('user')->get()->row_array();
 				setcookie(HHV_PREFIX.'_user_logged', $this->my_string->encode_cookie(json_encode($user)), time()+7*24*3600);
 				$this->db->where(array('username' => $_post['username']))->update('user', array('logined' => gmdate('Y-m-d H:i:s', time() + 7*3600), 'ip_logging' => $_SERVER['SERVER_ADDR'])); 
-				$this->my_string->js_redirect('Đăng nhập vào hệ thống thành công!', HHV_BASE_URL.'backend/auth/login');
+				$this->my_string->js_redirect('Đăng nhập thành công!', HHV_BASE_URL.'backend/auth/login');
 			}
 		}
 		$this->load->view('backend/auth/login', $data);
@@ -73,10 +73,10 @@ class Auth extends MY_Controller {
 	public function logout()
 	{
 		if($this->auth == NULL) 
-			$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+			$this->my_string->php_redirect(HHV_BASE_URL.'frontend');
 		delete_cookie(HHV_PREFIX.'_user_logged');
 		setcookie(HHV_PREFIX.'_user_logged', NULL, time()-3600);
-		$this->my_string->php_redirect(HHV_BASE_URL.'backend');
+		$this->my_string->php_redirect(HHV_BASE_URL.'frontend');
 	}
 
 	/*
@@ -157,17 +157,7 @@ class Auth extends MY_Controller {
 		}
 	}
 
-	/***
-	* Set validate to email
-	***/
-	public function _email($email){
-		$count = $this->db->from('user')->where(array('email' => $email))->count_all_results();
-		if($count == 0){
-			$this->form_validation->set_message('email', '%s không tồn tại!');
-			return FALSE;
-		}
-		return TRUE;
-	}
+	
 
 	/*
     ******** Create new account admin
@@ -200,6 +190,77 @@ class Auth extends MY_Controller {
 			}
 		}
 		$this->load->view('backend/auth/create_manager', $data);
+	}
+
+	/*
+    ******** Register user
+    **********************************************/
+	public function register()
+	{
+		$data['seo']['title'] = "Tạo tài khoản sử dụng";
+		if($this->input->post('create')){
+			$_post = $this->input->post('data');
+			$data['data']['_post'] = $_post; 
+
+			$this->form_validation->set_error_delimiters('<li>', '</li>');
+			$this->form_validation->set_rules('data[username]', 'Tên tài khoản', 'trim|required|min_length[3]|max_length[20]|regex_match[/^([a-z0-9_])+$/i]|callback__user');
+			$this->form_validation->set_rules('data[password]', 'Mật khẩu', 'trim|required');
+			$this->form_validation->set_rules('data[repassword]', 'Xác nhận mật khẩu', 'trim|required||matches[data[password]]');
+			$this->form_validation->set_rules('data[email]', 'Email', 'trim|required|valid_email|callback__email');
+			if ($this->form_validation->run() == TRUE)
+			{
+				$this->my_common->sentmail(array(
+				'name' => 'HHV',
+				'from' => 'hahuyvu0710@gmail.com',
+				'password' => 'tnjafqmehutpzjxe',
+				'to' => $_post['email'],
+				'subject' => 'Xác nhận đăng ký cho tài khoản '.$_post['username'],
+				'message' => 'Click vào link bên dưới để hoàn tất việc đăng ký : ' .HHV_BASE_URL. 'backend/auth/register/?username=' .base64_encode($_post['username']) .'&password='.base64_encode($_post['password']).'&email='.base64_encode($_post['email']),
+
+				));
+				$this->my_string->js_redirect('Truy cập Email để hoàn tất việc đăng ký!', HHV_BASE_URL.'backend');
+			}
+		}
+		if (isset($_GET['username']) && !empty($_GET['username'])) {
+				$_group = $this->db->where(array('title' => 'Thành viên'))->from('user_group')->get()->row_array();
+
+				// $_post = $this->my_string->allow_post($_post, array('username', 'password', 'email', 'groupid'));
+				$_post['username'] = base64_decode($_GET['username']);
+				$_post['email'] = base64_decode($_GET['email']);
+				$_post['salt'] = $this->my_string->random(69, TRUE);
+				$_post['password'] = $this->my_string->encode_password($_post['username'], base64_decode($_GET['password']), $_post['salt']);
+				$_post['created'] = gmdate('Y-m-d H:i:s', time() + 7*3600);
+				$_post['groupid'] = $_group['id'];
+
+				$this->db->insert('user', $_post); 
+				$this->my_string->js_redirect('Đăng ký thành công!', HHV_BASE_URL.'frontend');
+			}
+
+		$this->load->view('backend/auth/register', $data);
+	}
+
+	/***
+	* Set validate to user
+	***/
+	public function _user($user){
+		$count = $this->db->from('user')->where(array('username' => $user))->count_all_results();
+		if($count > 0){
+			$this->form_validation->set_message('_user', '%s đã tồn tại!');
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	/***
+	* Set validate to email
+	***/
+	public function _email($email){
+		$count = $this->db->from('user')->where(array('email' => $email))->count_all_results();
+		if($count > 0){
+			$this->form_validation->set_message('_email', '%s đã tồn tại!');
+			return FALSE;
+		}
+		return TRUE;
 	}
 }
 
