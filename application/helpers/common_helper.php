@@ -116,3 +116,24 @@ if ( ! function_exists('get_link_sort'))
 		return '<a href="'.substr($str, 0, -1).'">'.$param['title'].(($flag == 1)?'<img src="'.HHV_BASE_URL.'public/template/backend/images/'.$param['sort_value'].'.png" title="'.$param['sort_field'].' '.$param['sort_value'].'" />':'').'</a>';
 	}
 }
+
+if ( ! function_exists('get_lang'))
+{
+	function get_lang($lang)
+	{
+		$CI =& get_instance();
+		if(empty($lang)){
+            $_lang = $CI->session->userdata('_lang');
+            if (isset($_lang) && !empty($_lang) && $_lang != 'vi') {
+	                $CI->session->set_userdata('_lang', 'vi');
+	            }
+	        }
+        else{
+            if (!empty($lang) && in_array($lang, array('jp', 'en'))) {
+	                $CI->session->set_userdata('_lang', $lang);
+            	}
+        	}
+        $_lang = $CI->session->userdata('_lang');
+        $CI->lang->load('frontend', $_lang); // $this->lang->load('filename', 'language'); filename: frontend_lang
+    }
+}

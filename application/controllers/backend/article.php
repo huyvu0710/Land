@@ -406,9 +406,7 @@ class Article extends MY_Controller
                 $_post['alias'] = $this->my_string->alias($_post['title']);
                 $this->db->where(array('id' => $id))->update('article_item', $_post);
                 $this->my_tag->insert_list($_post['tags']);
-                if (isset($_post['route']) && !empty($_post['route'])) {
-                    $this->my_route->update('article/item/'.$id,$_post['route']);
-                }
+                $this->my_route->update('article/item/'.$id,$_post['route']);
                 $this->my_string->js_redirect('Sửa bài viết thành công!', !empty($continue)?base64_decode($continue):base_url().'backend/article/item');
             }
         }

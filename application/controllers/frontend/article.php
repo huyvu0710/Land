@@ -6,26 +6,13 @@ class Article extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library("my_layout"); // Sử dụng thư viện layout
         $this->my_layout->setLayout("layout/frontend"); // load file layout chính (views/layout/frontend.php)
         $this->auth = $this->my_auth->check(); 
     }
 
     public function index($page = 1, $id = '')
     {
-        if(empty($lang)){
-            $_lang = $this->session->userdata('_lang');
-            if (isset($_lang) && !empty($_lang) && $_lang != 'vi') {
-                $this->session->set_userdata('_lang', 'vi');
-            }
-        }
-        else{
-            if (!empty($lang) && in_array($lang, array('jp', 'en'))) {
-                $this->session->set_userdata('_lang', $lang);
-            }
-        }
-        $_lang = $this->session->userdata('_lang');
-        $this->lang->load('frontend', $_lang);
+        // get_lang($lang);
 
         $data['data']['category'] = $this->db->where(array('parentid' => '2'))->from('article_category')->get()->result_array();
 

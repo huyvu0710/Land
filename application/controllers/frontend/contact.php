@@ -6,11 +6,8 @@ class Contact extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library("my_layout"); // Sử dụng thư viện layout
         $this->my_layout->setLayout("layout/frontend"); // load file layout chính (views/layout/frontend.php)
         $this->auth = $this->my_auth->check();
-        // if($this->auth == NULL) 
-        //     $this->my_string->php_redirect(base_url().'frontend/contact');
     }
 
     public function index($lang = '')
@@ -32,6 +29,8 @@ class Contact extends CI_Controller
                 $this->my_string->js_redirect('Gửi bài thành công!', base_url().'frontend/contact/index');
             }
         }
+
+        get_lang($lang);
         $this->my_layout->view("frontend/contact/index", isset($data)?$data:NULL);
     } 
 }
